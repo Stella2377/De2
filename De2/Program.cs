@@ -1,4 +1,14 @@
+using De2.Data;
+using De2.Services;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// 2. Đăng ký Dependency Injection cho Service
+builder.Services.AddScoped<IPrescriptionService, PrescriptionService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -15,7 +25,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
+app.UseStaticFiles();
 app.UseAuthorization();
 
 app.MapStaticAssets();

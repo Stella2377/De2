@@ -1,0 +1,64 @@
+﻿@model De2.Models.ViewModels.PrescriptionCreateVM
+
+<div class="card shadow">
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">Tạo Đơn thuốc Mới</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post" id="prescriptionForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Mã đơn thuốc</label>
+                    <input asp-for="PrescriptionId" class="form-control" placeholder="VD: DT001" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Tên bệnh nhân</label>
+                    <input asp-for="PatientName" class="form-control" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Loại đơn thuốc</label>
+                <select asp-for="Type" class="form-select" id="typeSelector">
+                    <option value="Standard">Đơn thuốc thường</option>
+                    <option value="Special">Đơn thuốc đặc biệt</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Đơn giá</label>
+                    <input asp-for="UnitPrice" type="number" class="form-control" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Số lượng</label>
+                    <input asp-for="Quantity" type="number" class="form-control" />
+                </div>
+            </div>
+
+            <div id="specialFields" style="display: none;" class="p-3 bg-light border rounded">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Phí lưu kho đặc biệt</label>
+                        <input asp-for="StorageFee" type="number" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-danger fw-bold">Mã giấy phép bác sĩ (*)</label>
+                        <input asp-for="DoctorLicense" class="form-control" placeholder="Bắt buộc nếu SL > 10" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary px-4">Lưu đơn</button>
+                <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/prescription.js"></script>
+}

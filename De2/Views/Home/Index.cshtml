@@ -2,7 +2,39 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@model IEnumerable<De2.Models.ViewModels.PrescriptionIndexVM>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Danh sách Đơn thuốc</h2>
+    <a asp-action="Create" class="btn btn-success">Thêm đơn mới</a>
 </div>
+
+<table class="table table-hover border">
+    <thead class="table-dark">
+        <tr>
+            <th>Mã đơn</th>
+            <th>Tên bệnh nhân</th>
+            <th>Loại đơn</th>
+            <th class="text-end">Tổng tiền</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="@(item.IsSpecial ? "table-danger" : "")">
+                <td>@item.Id</td>
+                <td>@item.PatientName</td>
+                <td>
+                    <span class="badge @(item.IsSpecial ? "bg-danger" : "bg-info text-dark")">
+                        @item.TypeDisplayName
+                    </span>
+                </td>
+                <td class="text-end fw-bold">@item.TotalAmount.ToString("N0") VNĐ</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Chi tiết</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
