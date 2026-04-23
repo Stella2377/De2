@@ -33,6 +33,14 @@ public class HomeController(IPrescriptionService service, ApplicationDbContext c
         return View(prescription);
     }
 
+    [HttpGet]
+    public IActionResult Create()
+    {
+        // Khởi tạo một ViewModel mới để truyền ra View
+        var model = new PrescriptionCreateVM();
+        return View(model);
+    }
+
     [HttpPost]
     public async Task<IActionResult> Create(PrescriptionCreateVM vm)
     {
